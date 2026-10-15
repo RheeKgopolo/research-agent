@@ -19,8 +19,11 @@ from dotenv import load_dotenv
 
 from tools import TOOLS
 
-ROOT = Path(__file__).resolve().parents[2]          # .../Agentic
-load_dotenv(ROOT / ".env")
+HERE = Path(__file__).resolve().parent
+ENV_FILE = HERE / ".env"
+load_dotenv(ENV_FILE)                                  # project .env (see .env.example)
+if (HERE.parents[1] / "setup_env.sh").exists():        # running inside the Agentic workspace:
+    load_dotenv(HERE.parents[1] / ".env")              # fall back to its shared .env
 OUT_DIR = Path(__file__).parent / "outputs"
 DEFAULT_MODEL = os.getenv("AGENT_MODEL", "anthropic:claude-sonnet-5-5")
 
@@ -62,11 +65,10 @@ def _require_key(model: str) -> None:
     if var and not os.getenv(var, "").strip():
         raise SystemExit(
             f"\n{var} is not set, so '{model}' can't be called.\n"
-            f"  1. Open {ROOT / '.env'}\n"
+            f"  1. Open {ENV_FILE}  (copy .env.example if it doesn't exist)\n"
             f"  2. Add your key:  {var}=...\n"
             f"  3. Run again.\n"
-            f"Or run without a key:  python agent.py --offline \"your topic\"\n"
-            f"(In PyCharm: choose the 'Research Agent (offline)' run configuration.)"
+            f"Or run without a key:  python agent.py --offline \"your topic\""
         )
 
 

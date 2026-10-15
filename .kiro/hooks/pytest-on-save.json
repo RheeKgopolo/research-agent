@@ -5,7 +5,7 @@
     "description": "Runs the offline pytest suite after the agent saves a Python file.",
     "trigger": "PostFileSave",
     "matcher": "\\.py$",
-    "action": { "type": "command", "command": "../../.venv/bin/python -m pytest -q tests" },
+    "action": { "type": "command", "command": ".venv/bin/python -m pytest -q tests" },
     "timeout": 120
   }]
 }

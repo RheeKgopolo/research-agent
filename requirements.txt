@@ -1,0 +1,7 @@
+# Runtime dependencies for the research agent (tested with Python 3.12 / 3.13).
+# aisuite's extras pin compatible provider SDKs (anthropic<1, openai<2).
+aisuite[anthropic,openai]==0.2.0
+python-dotenv==1.2.4
+wikipedia==1.4.0
+tavily-python==0.8.5
+textstat==0.7.13          # used by the evaluation stage (Kiro tutorial, Lab 1)
